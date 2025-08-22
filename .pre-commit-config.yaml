@@ -14,11 +14,3 @@ repos:
     rev: 1.8.6
     hooks:
       - id: bandit  
-
-  - repo: local
-    hooks:
-      - id: pytest
-        name: Run pytest
-        entry: pytest -v
-        language: system
-        pass_filenames: false
