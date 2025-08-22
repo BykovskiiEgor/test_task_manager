@@ -1,0 +1,43 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/src
+      - src_data:/src_data 
+      - ./tests:/src/tests       
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgre_data:/var/lib/postgresql/data/
+
+  db_test:
+    image: postgres
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: task_manager_test
+    ports:
+      - "5433:5432"
+
+
+  
+
+
+volumes:
+  src_data:
+  postgre_data:
